@@ -24,8 +24,7 @@ class DNA:
         self.n_buses = n_buses
         self.map = _map
         self.start_position = start_position
-        self.longest_travel = np.inf
-        self.total_travel = np.inf
+        self.fitness_value = [np.inf, np.inf]
         if routes == None:
             self.routes = self.initialize_routes()
         else:
@@ -67,14 +66,12 @@ class DNA:
         The fitness function will calculate the max route
         '''
         
-        if self.longest_travel == np.inf:
+        if self.fitness_value[0] == np.inf:
             routes_cost = np.zeros(shape=self.routes.shape[0],dtype=float)
             for idx,r in enumerate(self.routes):
                 routes_cost[idx] = DNA.get_route_cost(r, self.map)
 
-            self.longest_travel = max(routes_cost)
-            self.total_travel = sum(routes_cost)
-
+            self.fitness_value = [max(routes_cost), sum(routes_cost)]
     def get_route_cost(r,_map):
         cost = 0.0
         for i in range(r.size-1):
@@ -208,13 +205,10 @@ class DNA:
                 y = DNA.former_city(encoded_parent_2, k)
 
             # Find K in parents and remove.
-            # print('----')
-            # print(k)
-            # print(encoded_parent_1)
+            
             idx_of_k_parent_1 = np.where(encoded_parent_1 == k)[0]
             encoded_parent_1 = np.delete(encoded_parent_1,idx_of_k_parent_1)
-            # print(k)
-            # print(encoded_parent_2)
+            
             idx_of_k_parent_2 = np.where(encoded_parent_2 == k)[0]
             encoded_parent_2 = np.delete(encoded_parent_2,idx_of_k_parent_2)
             
@@ -229,7 +223,7 @@ class DNA:
             length = len(encoded_parent_1)
             result = np.append(result, k)
     
-            # print(result)
+            
 
         #child 2 generation based on random permutation of Child 1/Result
         
