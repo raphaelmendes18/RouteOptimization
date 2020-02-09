@@ -1,9 +1,20 @@
 
 from population import Population
+from point import Point
+from map import Map
+
+######################## Params ##########################
+n_pop
+crossover_rate
+mutation_rate
+n_buses
+_map
+start_position
+points
 
 
 if __name__ == "__main__":
-    pass
+    
 
 
 
