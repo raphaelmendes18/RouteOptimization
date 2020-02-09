@@ -2,10 +2,10 @@ from components.mapping.point import Point
 from random import randint
 import pickle as pkl
 
-number_of_points = 10
+number_of_points = 150
 
 min_range_x = 10
-max_range_x = 100
+max_range_x = 500
 
 min_range_y = 10
 max_range_y = 500

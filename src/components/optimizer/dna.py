@@ -110,7 +110,10 @@ class DNA:
         '''
         Identify the stop that comes after stop K
         '''
-        idx_of_city = np.where(encoded == k)[0][0]
+        try:
+            idx_of_city = np.where(encoded == k)[0][0]
+        except IndexError:
+            return encoded[0]
         if idx_of_city == len(encoded)-1:
             return encoded[0]
         else:
@@ -222,8 +225,6 @@ class DNA:
             
             length = len(encoded_parent_1)
             result = np.append(result, k)
-    
-            
 
         #child 2 generation based on random permutation of Child 1/Result
         

@@ -5,11 +5,11 @@ from components.mapping.map import Map
 import pickle as pkl
 import pandas as pd
 ######################## Params ##########################
-n_generations = 10
-n_pop = 500
+n_generations = 20
+n_pop = 1000
 crossover_rate = 0.8
 mutation_rate = 0.2
-n_buses = 2
+n_buses = 10
 start_position = 0
 
 with open('../points.pkl','rb') as points_file:
