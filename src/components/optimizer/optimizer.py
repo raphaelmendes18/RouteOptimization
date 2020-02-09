@@ -2,7 +2,7 @@
 from population import Population
 from point import Point
 from map import Map
-
+import pickle as pkl
 ######################## Params ##########################
 n_pop
 crossover_rate
