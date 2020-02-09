@@ -4,7 +4,7 @@ from components.mapping.point import Point
 from components.mapping.map import Map
 import pickle as pkl
 ######################## Params ##########################
-n_generations = 100
+n_generations = 10
 n_pop = 5000
 crossover_rate = 0.4
 mutation_rate = 0.2
@@ -27,6 +27,7 @@ if __name__ == "__main__":
         opt.pop[n_best:n_pop] = offspring + mutations
         best = opt.pop[0]
         print(best.fitness_value)
+    print(best.routes)
         
     
     

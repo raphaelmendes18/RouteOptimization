@@ -24,7 +24,8 @@ class DNA:
         self.n_buses = n_buses
         self.map = _map
         self.start_position = start_position
-        self.fitness_value = np.inf
+        self.longest_travel = np.inf
+        self.total_travel = np.inf
         if routes == None:
             self.routes = self.initialize_routes()
         else:
@@ -66,12 +67,13 @@ class DNA:
         The fitness function will calculate the max route
         '''
         
-        if self.fitness_value == np.inf:
+        if self.longest_travel == np.inf:
             routes_cost = np.zeros(shape=self.routes.shape[0],dtype=float)
             for idx,r in enumerate(self.routes):
                 routes_cost[idx] = DNA.get_route_cost(r, self.map)
 
-            self.fitness_value = max(routes_cost)      
+            self.longest_travel = max(routes_cost)
+            self.total_travel = sum(routes_cost)
 
     def get_route_cost(r,_map):
         cost = 0.0
