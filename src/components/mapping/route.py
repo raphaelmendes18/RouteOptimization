@@ -15,7 +15,7 @@ class Route:
         ''' 
         Euclidean Distance
         '''
-        return np.linalg.norm(self.start-self.end)
+        return np.linalg.norm(self.start.coordinates-self.end.coordinates)
 
 
 

@@ -1,5 +1,5 @@
 
-
+import numpy as np
 class Point:
     ''' 
     Class representing a point in space
