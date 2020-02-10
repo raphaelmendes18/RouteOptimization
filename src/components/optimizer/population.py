@@ -14,12 +14,13 @@ class Population:
         * Mutation: Generate n_pop*mutation_rate mutated solutions from n_best + n_pop*crossover_rate
     '''
     
-    def __init__(self, n_pop, crossover_rate, mutation_rate, n_buses, _map, start_position):
+    def __init__(self, n_pop, crossover_rate, mutation_rate, n_best, n_buses, _map, start_position):
         try:
             assert isinstance(n_pop, int)
             assert isinstance(crossover_rate, float)
             assert isinstance(mutation_rate, float)
             assert isinstance(n_buses, int)
+            assert isinstance(n_best, int)
             assert isinstance(_map, Map)
             assert isinstance(start_position, int)
         except AssertionError:
@@ -29,6 +30,7 @@ class Population:
         self.crossover_rate = crossover_rate
         self.mutation_rate = mutation_rate 
         self.map = _map
+        self.n_best = n_best
         self._initialize_pop(n_buses, start_position)
     
     def _initialize_pop(self, n_buses, start_position):
@@ -37,13 +39,11 @@ class Population:
         for i in range(self.n_pop):
             self.pop.append(DNA(n_buses, self.map, start_position))
 
-    def natural_selection(self, Qt):
+    def natural_selection(self):
         '''
         Calculate Fitness
         Sort population
         '''
-
-        self.pop = self.pop + Qt
         aux_pop = []
         for p in self.pop:
             p.fitness()
@@ -68,9 +68,8 @@ class Population:
     def binary_tournament(self):
 
         offspring_num = (int) (self.n_pop*self.crossover_rate)
-        n_best = (int) (self.n_pop)
-
-        mating_pool = self.pop[0:n_best]
+                
+        mating_pool = self.pop[0:self.n_best]
         
         offspring = []
 
@@ -88,9 +87,7 @@ class Population:
 
     def mutation(self, offspring):
 
-        n_best = (int) (self.n_pop)
-
-        mating_pool = self.pop[0:n_best]
+        mating_pool = self.pop[0:self.n_best]
 
         mutation_pool = mating_pool + offspring
         mutated_list = []
@@ -109,14 +106,16 @@ class Population:
         
         pareto_frontiers = []
         dominance_list = [] 
-        remaining = self.n_pop*2
-        pop = [i for i in range(self.n_pop*2)]
+        remaining = self.n_pop
+        pop = [i for i in range(self.n_pop)]
         '''
         Create List of Dominations By for each individual
         '''
-        for i in range(self.n_pop*2):
+        
+        for i in range(self.n_pop):
             dominated_by = []
-            for j in range(self.n_pop*2):
+            for j in range(self.n_pop):
+                # print(len(self.pop))
                 if Population.a_dominates_b(self.pop[j], self.pop[i]):
                     dominated_by.append(j)
             dominance_list.append(dominated_by)
@@ -167,7 +166,7 @@ class Population:
         '''
         Store the values, the index of the crowd_sorting_values is associated with the pop index in self.pop
         '''
-        crowd_sorting_values = [[] for i in range(self.n_pop*2)]
+        crowd_sorting_values = [[] for i in range(self.n_pop)]
         '''
         For Normalization Purposes, need to get min and max for each objective
         '''

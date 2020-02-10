@@ -110,10 +110,9 @@ class DNA:
         '''
         Identify the stop that comes after stop K
         '''
-        try:
-            idx_of_city = np.where(encoded == k)[0][0]
-        except IndexError:
-            return encoded[0]
+        
+        idx_of_city = np.where(encoded == k)[0][0]
+        
         if idx_of_city == len(encoded)-1:
             return encoded[0]
         else:
@@ -209,10 +208,10 @@ class DNA:
 
             # Find K in parents and remove.
             
-            idx_of_k_parent_1 = np.where(encoded_parent_1 == k)[0]
+            idx_of_k_parent_1 = np.where(encoded_parent_1 == k)[0][0]
             encoded_parent_1 = np.delete(encoded_parent_1,idx_of_k_parent_1)
             
-            idx_of_k_parent_2 = np.where(encoded_parent_2 == k)[0]
+            idx_of_k_parent_2 = np.where(encoded_parent_2 == k)[0][0]
             encoded_parent_2 = np.delete(encoded_parent_2,idx_of_k_parent_2)
             
             dx = _map.get_distance_between_points(k, x)
