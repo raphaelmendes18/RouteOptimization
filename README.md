@@ -9,6 +9,7 @@ The project utilizes Genetic Algorithms, each solution is a set of routes for ea
 dna.py 
 population.py
 ```
+The NSGA-II was utilized to evaluate the fitness values for all the solutions in the population.
 
 ### Prerequisites
 
