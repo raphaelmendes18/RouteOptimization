@@ -13,7 +13,7 @@ class Map:
         self.fill_adj_mat()
     def fill_adj_mat(self):
         '''
-        Initialize with random values
+        Initialize with random values for distances
         '''
         shape = self.adj_mat.shape[0]
         for i in range(shape):
